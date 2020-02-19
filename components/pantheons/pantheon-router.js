@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
     const page = parseInt(req.query.page) || 1;
 
     // get pager object for specified page
-    const pageSize = 10;
+    const pageSize = 30;
     const pager = paginate(items.length, page, pageSize);
 
     // get page of items from items array
