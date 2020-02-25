@@ -40,7 +40,7 @@ router.post('/', user_restricted, (req, res) => {
 
   SymbolConnections.add(data)
   .then(symbol => {
-    if(duplicateConnection) {
+    if(true) {
       const main_id = data.main_symbol_id
       const connect_id = data.connected_symbol_id
       const relationship = data.connection_relationship
