@@ -19,8 +19,11 @@ const SymbolRouter = require('./components/symbols/symbol-router.js');
 const ResourceRouter = require('./components/resources/resource-router.js')
 //User Information
 const UserRouter = require('./components/users/user-router.js');
+//Router for doing the "all" searching & random pages
+const AllRouter = require('./components/all/all-router.js');
 
 //Log all creates & edits with the user who did so. Ability to view logs & undo changes.
+server.use('/api/all', AllRouter);
 server.use('/api/logs', LogRouter);
 server.use('/api/feedback', FeedbackRouter);
 //Sources provide a link to an external website where we find our information. Attached to all in main database.
