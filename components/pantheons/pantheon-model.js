@@ -17,12 +17,9 @@ module.exports = {
 function find(sort, sortdir, searchTerm) {
   return db('pantheons')
   .orderBy(sort, sortdir)
-  .leftJoin('images', 'pantheons.pantheon_id', 'images.foreign_id')
   .where('pantheon_name', 'iLIKE', `%${searchTerm}%`)
- 
   .then()
   .catch(err => console.log(err))
-
 }
 
 function listOfNames() {
