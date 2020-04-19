@@ -49,16 +49,8 @@ function findByName(name, excludingId = null) {
 
 async function getSymbols(id, kindInfoKinds) {
   const symbols = await db('symbols')
-  .leftJoin('images', 'symbols.symbol_id', 'images.foreign_id')
   .select('symbol_name', 'symbol_id', 'symbol_description', 'symbol_kind_id', 'health_warning', 'image_url', 'extra_info', 'order_number')
   .where('symbol_kind_id', id)
-  .andWhere(function() {
-    this.where(function() {
-      this.where('foreign_class', "Symbol").andWhere('thumbnail', true)
-    }).orWhere(function() {
-      this.whereNull('foreign_class').whereNull('thumbnail')
-    })
-  })
 
   let results = async() => Promise.all(symbols.map(item => {
     const symbols = db('symbol_connections')
