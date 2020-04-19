@@ -49,7 +49,7 @@ function findByName(name, excludingId = null) {
 
 async function getSymbols(id, kindInfoKinds) {
   const symbols = await db('symbols')
-  .select('symbol_name', 'symbol_id', 'symbol_description', 'symbol_kind_id', 'health_warning', 'image_url', 'extra_info', 'order_number')
+  .select('symbol_name', 'symbol_id', 'symbol_description', 'symbol_kind_id', 'health_warning', 'extra_info', 'order_number')
   .where('symbol_kind_id', id)
 
   let results = async() => Promise.all(symbols.map(item => {
