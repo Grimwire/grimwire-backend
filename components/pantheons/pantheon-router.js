@@ -23,6 +23,7 @@ router.get('/', (req, res) => {
   .then(pantheons => {
     let items = {}
     pantheons.map((i) => items[i.pantheon_name] = i)
+    console.log(items)
     items = Object.values(items)
 
     // get page from query params or default to first page
