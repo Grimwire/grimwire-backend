@@ -19,13 +19,7 @@ function find(sort, sortdir, searchTerm) {
   .orderBy(sort, sortdir)
   .leftJoin('images', 'pantheons.pantheon_id', 'images.foreign_id')
   .where('pantheon_name', 'iLIKE', `%${searchTerm}%`)
-  .andWhere(function() {
-    this.where(function() {
-      this.where('foreign_class', "Pantheon")
-    }).orWhere(function() {
-      this.whereNull('foreign_class').whereNull('thumbnail')
-    })
-  })
+  
   .then()
   .catch(err => console.log(err))
 
