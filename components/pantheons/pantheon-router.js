@@ -21,7 +21,9 @@ router.get('/', (req, res) => {
 
   Pantheons.find(sort, sortdir, searchTerm)
   .then(pantheons => {
-    const items = pantheons
+    let items = {}
+    pantheons.map((i) => items[i.pantheon_name] = i)
+    items = Object.values(items)
 
     // get page from query params or default to first page
     const page = parseInt(req.query.page) || 1;

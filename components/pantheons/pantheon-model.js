@@ -24,6 +24,8 @@ function find(sort, sortdir, searchTerm) {
       this.where('foreign_class', "Pantheon").andWhere('thumbnail', true)
     }).orWhere(function() {
       this.whereNull('foreign_class').whereNull('thumbnail')
+    }).orWhere(function() {
+      this.where('foreign_class', "Pantheon").andWhere('thumbnail', false)
     })
   })
   .then()
