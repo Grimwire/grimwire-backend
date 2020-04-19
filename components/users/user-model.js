@@ -17,7 +17,7 @@ module.exports = {
 
 function find(username) {
   return db('users')
-    .where('username', 'ILIKE', `${username}`)
+    .where('username', 'ILIKE', `%${username}%`)
 }
 
 function findById(id) {
