@@ -48,13 +48,13 @@ router.get('/', (req, res) => {
     return res.json({ pager, pageOfItems: pageOfItems.map(
       pantheon => ({
         ...pantheon,
-        thumbnail: {
+        thumbnail: pantheon.foreign_class === 'pantheon' ? {
           image_url: pantheon.image_url,
           thumbnail: pantheon.thumbnail,
           image_title: pantheon.image_title,
           image_description: pantheon.image_description,
           image_id: pantheon.image_id
-        }
+        } : {}
       })
     )});
 
