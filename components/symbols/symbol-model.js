@@ -18,16 +18,8 @@ module.exports = {
 function find(sort, sortdir, searchTerm) {
   return db('symbols')
   .orderBy(sort, sortdir)
-  .leftJoin('images', 'symbols.symbol_id', 'images.foreign_id')
   .leftJoin('kinds', 'symbols.symbol_kind_id', 'kinds.kind_id')
   .where("symbol_name", 'iLIKE', `%${searchTerm}%`)
-  .andWhere(function() {
-    this.where(function() {
-      this.where('foreign_class', "Symbol").andWhere('thumbnail', true)
-    }).orWhere(function() {
-      this.whereNull('foreign_class').whereNull('thumbnail')
-    })
-  })
   .then()
   .catch(err => console.log(err))
 }

@@ -17,15 +17,8 @@ module.exports = {
 function find(sort, sortdir, searchTerm) {
   return db('kinds')
   .orderBy(sort, sortdir)
-  .leftJoin('images', 'kinds.kind_id', 'images.foreign_id')
   .where('kind_name', 'iLIKE', `%${searchTerm}%`)
-  .andWhere(function() {
-    this.where(function() {
-      this.where('foreign_class', "Kind").andWhere('thumbnail', true)
-    }).orWhere(function() {
-      this.whereNull('foreign_class').andWhere(function() { this.whereNull('thumbnail') })
-    })
-  })
+  
 }
 
 function listOfNames() {
