@@ -22,7 +22,15 @@ router.get('/', (req, res) => {
   Pantheons.find(sort, sortdir, searchTerm)
   .then(pantheons => {
     let items = {}
-    pantheons.map((i) => items[i.pantheon_name] = i)
+    pantheons.map((i) => {
+      if(items[i.pantheon_name]){
+        if(i.thumbnail) {
+          items[i.pantheon_name] = i
+        }
+      } else {
+        items[i.pantheon_name] = i
+      }
+    })
     console.log(items)
     items = Object.values(items)
 
