@@ -28,20 +28,20 @@ function findById(id) {
 
 function findUser(key) {
   return db('users')
-  .where('user_email', key)
-  .orWhere('username', key)
+  .where('user_email', 'ilike', key)
+  .orWhere('username', 'ilike', key)
   .first();
 }
 
 function findByUsername(username) {
   return db('users')
-    .where({ username })
+    .where('username', 'ilike', username)
     .first();
 }
 
 function findByEmail(user_email) {
   return db('users')
-    .where({ user_email })
+    .where('user_email', 'ilike', user_email )
     .first();
 }
 
