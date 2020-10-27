@@ -7,7 +7,8 @@ module.exports = {
   confirmAll,
   add,
   update,
-  remove
+  remove,
+  removeAll
 };
 
 
@@ -63,4 +64,8 @@ function remove(id) {
   return db('logs')
     .where( 'log_id', id )
     .del();
+}
+
+function removeAll() {
+  return db('logs').del();
 }

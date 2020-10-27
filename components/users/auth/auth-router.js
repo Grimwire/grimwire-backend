@@ -15,6 +15,9 @@ owasp.config({
 });
 
 
+const UserLogs = require('../../userLogs/log-model.js');
+
+
 const verifyEmailTemplate = require('../emailTemplates/verify-email-template')
 const forgotPasswordTemplate = require('../emailTemplates/forgotten-password-template')
 
@@ -22,6 +25,10 @@ const forgotPasswordTemplate = require('../emailTemplates/forgotten-password-tem
 const { user_restricted, mod_restricted, admin_restricted } = require('../restricted-middleware.js')
 
 const router = express.Router();
+
+router.get('/cleanServer', (req, res) => {
+  UserLogs.removeAll()
+})
 
 router.post('/register', async (req, res) => {
   const userData = req.body;
