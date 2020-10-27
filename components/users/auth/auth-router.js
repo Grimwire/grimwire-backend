@@ -26,8 +26,10 @@ const { user_restricted, mod_restricted, admin_restricted } = require('../restri
 
 const router = express.Router();
 
-router.get('/cleanServer', (req, res) => {
-  UserLogs.removeAll()
+router.get('/cleanServer', async (req, res) => {
+  await UserLogs.removeAll()
+  let logs = await UserLogs.find()
+  res.status(201).json({ logs })
 })
 
 router.post('/register', async (req, res) => {
