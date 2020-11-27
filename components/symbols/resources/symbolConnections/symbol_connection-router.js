@@ -96,9 +96,11 @@ router.put('/:id', user_restricted, async (req, res) => {
   .then(async (updatedSymbolConnection) => {
 
     let inverseConnection = await SymbolConnections.findInverse(main_symbol_id, connected_symbol_id)
+    console.log(inverseConnection)
     if(inverseConnection) {
       inverseConnection.main_symbol_id = updatedSymbolConnection.connected_symbol_id
       inverseConnection.connected_symbol_id = updatedSymbolConnection.main_symbol_id
+      console.log(inverseConnection)
       await SymbolConnections.update(inverseConnection, inverseConnection.symbol_connection_id)
     }
 

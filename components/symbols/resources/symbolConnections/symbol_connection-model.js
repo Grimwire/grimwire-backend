@@ -62,7 +62,15 @@ function add(symbol_connection) {
 function update(changes, id) {
   return db('symbol_connections')
     .where('symbol_connection_id', id)
-    .update(changes);
+    .update(changes)
+    .returning('symbol_connection_id')
+    .then(res => {
+      return findById(res[0])
+    })
+    .catch(err => {
+      console.log(err)
+      return err
+    });
 }
 
 function remove(id) {
