@@ -87,7 +87,8 @@ router.put('/:id', user_restricted, async (req, res) => {
   const { id } = req.params;
   const symbolConnectionData = req.body;
 
-  let {main_symbol_id, connected_symbol_id} = symbolConnectionData
+  let og = await SymbolConnections.findById(id)
+  let {main_symbol_id, connected_symbol_id} = og
 
   log(req, await SymbolConnections.findById(id))
 
