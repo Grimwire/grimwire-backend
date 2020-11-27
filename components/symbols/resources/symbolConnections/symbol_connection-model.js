@@ -5,7 +5,8 @@ module.exports = {
   findById,
   add,
   update,
-  remove
+  remove,
+  findInverse
 };
 
 
@@ -17,6 +18,7 @@ function findBySymbol(id) {
   .leftJoin('kinds', 'symbols.symbol_kind_id', 'kinds.kind_id')
   .select(
     'symbol_connection_id',
+    'main_symbol_id',
     'connected_symbol_id',
     'connection_description',
     'connection_strength',
@@ -35,6 +37,13 @@ function findById(id) {
   return db('symbol_connections')
     .where( 'symbol_connection_id', id )
     .first();
+}
+
+function findInverse(main_symbol_id, connected_symbol_id) {
+  return db('symbol_connections')
+  .where('main_symbol_id', connected_symbol_id)
+  .where('connected_symbol_id', main_symbol_id)
+  .first();
 }
 
 function add(symbol_connection) {

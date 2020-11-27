@@ -85,12 +85,24 @@ router.post('/', user_restricted, (req, res) => {
 
 router.put('/:id', user_restricted, async (req, res) => {
   const { id } = req.params;
-  const category_to_pantheonData = req.body;
+  const symbolConnectionData = req.body;
+
+  let {main_symbol_id, connected_symbol_id} = symbolConnectionData
 
   log(req, await SymbolConnections.findById(id))
-  SymbolConnections.update(category_to_pantheonData, id)
-  .then(updatedCategoryToPantheon => {
-    res.json(updatedCategoryToPantheon);
+
+  SymbolConnections.update(symbolConnectionData, id)
+  .then(async (updatedSymbolConnection) => {
+
+    let inverseConnection = await SymbolConnections.findInverse(main_symbol_id, connected_symbol_id)
+    if(inverseConnection) {
+      inverseConnection.main_symbol_id = updatedSymbolConnection.connected_symbol_id
+      inverseConnection.connected_symbol_id = updatedSymbolConnection.main_symbol_id
+      await SymbolConnections.update(inverseConnection, inverseConnection.symbol_connection_id)
+    }
+
+
+    res.json(updatedSymbolConnection);
   })
   .catch (err => {
     res.status(500).json({ message: 'Failed to update category_to_pantheon' });
