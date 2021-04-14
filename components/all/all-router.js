@@ -69,7 +69,8 @@ router.get('/', async (req, res) => {
 router.get('/random', async(req, res) => {
   let items = []
 
-  const pantheons = await Pantheons.find('pantheon_name', 'asc', '').map(i => ({...i, recordKind: 'pantheon'}) )
+  let pantheons = await Pantheons.find('pantheon_name', 'asc', '')
+  pantheons = pantheons.map(i => ({...i, recordKind: 'pantheon'}) )
 
   for(var i = 0; i < 4; i++){
     let pos = Math.floor(Math.random() * pantheons.length)
@@ -77,7 +78,8 @@ router.get('/random', async(req, res) => {
     pantheons.splice(pos, 1)
   }
 
-  const symbols = await Symbols.find('symbol_name', 'asc', '').map(i => ({...i, recordKind: 'symbol'}) )
+  let symbols = await Symbols.find('symbol_name', 'asc', '')
+  symbols = symbols.map(i => ({...i, recordKind: 'symbol'}) )
 
   for(var i = 0; i < 4; i++){
     let pos = Math.floor(Math.random() * symbols.length)
@@ -85,7 +87,8 @@ router.get('/random', async(req, res) => {
     symbols.splice(pos, 1)
   }
 
-  const kinds = await Kinds.find('kind_name', 'asc', '').map(i => ({...i, recordKind: 'kind'}) )
+  let kinds = await Kinds.find('kind_name', 'asc', '')
+  kinds = kinds.map(i => ({...i, recordKind: 'kind'}) )
 
   for(var i = 0; i < 4; i++){
     let pos = Math.floor(Math.random() * kinds.length)
@@ -93,7 +96,8 @@ router.get('/random', async(req, res) => {
     kinds.splice(pos, 1)
   }
 
-  const categories = await Categories.find('category_name', 'asc', '').map(i => ({...i, recordKind: 'category'}) )
+  let categories = await Categories.find('category_name', 'asc', '')
+  categories = categories.map(i => ({...i, recordKind: 'category'}) )
 
   for(var i = 0; i < 4; i++){
     let pos = Math.floor(Math.random() * categories.length)
