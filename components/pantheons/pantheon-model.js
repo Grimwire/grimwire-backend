@@ -18,8 +18,6 @@ function find(sort, sortdir, searchTerm) {
   return db('pantheons')
   .orderBy(sort, sortdir)
   .where('pantheon_name', 'iLIKE', `%${searchTerm}%`)
-  .then()
-  .catch(err => console.log(err))
 }
 
 function listOfNames() {

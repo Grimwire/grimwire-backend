@@ -20,8 +20,6 @@ function find(sort, sortdir, searchTerm) {
   .orderBy(sort, sortdir)
   .leftJoin('kinds', 'symbols.symbol_kind_id', 'kinds.kind_id')
   .where("symbol_name", 'iLIKE', `%${searchTerm}%`)
-  .then()
-  .catch(err => console.log(err))
 }
 
 
