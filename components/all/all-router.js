@@ -12,10 +12,17 @@ router.get('/', async (req, res) => {
   const sortdir = req.query.sortdir || "ASC"
   const searchTerm = req.query.search || ""
 
-  const pantheons = await Pantheons.find('pantheon_name', sortdir, searchTerm).map(i => ({...i, recordKind: 'pantheon'}) )
-  const symbols = await Symbols.find('symbol_name', sortdir, searchTerm).map(i => ({...i, recordKind: 'symbol'}) )
-  const kinds = await Kinds.find('kind_name', sortdir, searchTerm).map(i => ({...i, recordKind: 'kind'}) )
-  const categories = await Categories.find('category_name', sortdir, searchTerm).map(i => ({...i, recordKind: 'category'}) )
+  let pantheons = await Pantheons.find('pantheon_name', sortdir, searchTerm)
+  pantheons = pantheons.map(i => ({...i, recordKind: 'pantheon'}) )
+  
+  let symbols = await Symbols.find('symbol_name', sortdir, searchTerm)
+  symbols = symbols.map(i => ({...i, recordKind: 'symbol'}) )
+  
+  let kinds = await Kinds.find('kind_name', sortdir, searchTerm)
+  kinds = kinds.map(i => ({...i, recordKind: 'kind'}) )
+  
+  let categories = await Categories.find('category_name', sortdir, searchTerm)
+  categories = categories.map(i => ({...i, recordKind: 'category'}) )
 
   let items = [...pantheons, ...symbols, ...kinds, ...categories]
   
